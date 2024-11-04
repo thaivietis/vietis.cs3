@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class UserController {
+public class StudentController {
     @GetMapping("/user")
     public String getMethodName(@RequestParam String param) {
         return "user";
