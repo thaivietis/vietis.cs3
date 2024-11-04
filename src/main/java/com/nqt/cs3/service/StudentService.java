@@ -3,13 +3,14 @@ package com.nqt.cs3.service;
 import java.util.List;
 
 import com.nqt.cs3.domain.Student;
+import com.nqt.cs3.service.IService.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nqt.cs3.repository.StudentRepository;
 
 @Service
-public class StudentService {
+public class StudentService implements IStudentService {
 
     @Autowired
     private StudentRepository studentRepository;

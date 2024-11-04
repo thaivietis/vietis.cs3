@@ -2,22 +2,21 @@ package com.nqt.cs3.domain;
 
 import com.nqt.cs3.constant.RoleEnum;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.FieldDefaults;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "roles")
-public class Role{
+@Table(name= "role")
+public class Role {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    private long id;
     @Enumerated(EnumType.STRING)
-    RoleEnum name;
-    String description;
+    private RoleEnum name;
+    private String description;
 }
