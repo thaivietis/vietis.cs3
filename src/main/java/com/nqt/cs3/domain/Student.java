@@ -1,5 +1,6 @@
 package com.nqt.cs3.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.nqt.cs3.constant.GenderEnum;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -17,7 +18,8 @@ import java.time.Instant;
 @Entity
 @Table(name = "students")
 public class Student {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     String fullName;
     String password;
@@ -27,10 +29,27 @@ public class Student {
     String phoneNumber;
     String email;
     String avatar;
-    int age;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
     Instant dateOfBirth;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
     Instant createdAt;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
     Instant updatedAt;
     String createdBy;
     String updatedBy;
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = Instant.now();
+        this.createdBy = "Nguyễn Quang Thái";
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = Instant.now();
+        this.updatedBy = "Nguyễn Quang Thái";
+    }
 }
