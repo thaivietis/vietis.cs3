@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.time.Instant;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -25,7 +26,7 @@ public class Course {
     long id;
     String name;
     String description;
-    int max;
+    int maxStudent;
     String image;
     String instructor;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
@@ -35,4 +36,19 @@ public class Course {
     Instant updatedAt;
     String createdBy;
     String updatedBy;
+
+    @OneToMany(mappedBy = "course")
+    List<Enrollment> enrollments;
+
+    @PrePersist
+    public void prePersist() {
+        createdAt = Instant.now();
+        createdBy = "Nguyễn Quang Thái";
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = Instant.now();
+        updatedBy = "Nguyễn Quang Thái";
+    }
 }

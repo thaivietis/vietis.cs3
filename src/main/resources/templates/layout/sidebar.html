@@ -12,18 +12,18 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     </a>
 
-                    <a class="nav-link" th:text="Course">
+                    <a class="nav-link" th:text="Course" th:href="@{/course}">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     </a>
 
-                    <a class="nav-link" th:text="Enrollment">
+                    <a class="nav-link" th:text="Enrollment" th:href="@{/enrollment}">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     </a>
                 </div>
             </div>
             <div class="sb-sidenav-footer">
                 <div class="small">Logged in as:</div>
-                Nguyễn Quang Thái
+                <p th:text="${student.fullName}"></p>
             </div>
         </nav>
     </div>

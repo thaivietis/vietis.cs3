@@ -7,9 +7,8 @@
                 class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <p style="color: white;">
-                <span>Welcome,</span>
-                Nguyễn Quang Thái
+            <p style="color: white;">Welcome,
+                <span th:text="${student.fullName}" style="color: white;"></span>
             </p>
         </form>
         <!-- Navbar-->
@@ -23,7 +22,7 @@
                         <hr class="dropdown-divider" />
                     </li>
                     <li>
-                        <form  method="post">
+                        <form  method="post" th:action="@{/logout}">
                             <input type="hidden" />
                             <button class="dropdown-item" type="submit">Logout</button>
                         </form>

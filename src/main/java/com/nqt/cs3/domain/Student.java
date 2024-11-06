@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -41,6 +42,13 @@ public class Student {
     String createdBy;
     String updatedBy;
 
+    @OneToMany(mappedBy = "student")
+    List<Enrollment> enrollments;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    Role role;
+    
     @PrePersist
     public void prePersist() {
         this.createdAt = Instant.now();
