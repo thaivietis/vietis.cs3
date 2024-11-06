@@ -3,12 +3,16 @@ package com.nqt.cs3.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.nqt.cs3.constant.RoleEnum;
+import com.nqt.cs3.domain.Role;
 import com.nqt.cs3.domain.Student;
+import com.nqt.cs3.dto.RegisterDTO;
 import com.nqt.cs3.service.IService.IStudentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nqt.cs3.repository.RoleRepository;
 import com.nqt.cs3.repository.StudentRepository;
 
 @Service
@@ -17,6 +21,8 @@ public class StudentService implements IStudentService {
     @Autowired
     private StudentRepository studentRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
     // SAVE
     public Student save(Student student) {
         return studentRepository.save(student);
@@ -31,9 +37,12 @@ public class StudentService implements IStudentService {
     }
 
     public List<Student> findAll() {
-        return studentRepository.findAll();
+        return this.studentRepository.findAll();
     }
 
+    public Student findByEmail(String email) {
+        return this.studentRepository.findByEmail(email);
+    }
     // UPDATE
     public Student update(Student student) {
         Optional<Student> studentOptional = studentRepository.findById(student.getId());
@@ -54,5 +63,17 @@ public class StudentService implements IStudentService {
     // DELETE
     public void delete(long id) {
         studentRepository.deleteById(id);
+    }
+
+    @Override
+    public Student registerDtoToStudent(RegisterDTO registerDTO) {
+        Student student = new Student();
+        student.setFullName(registerDTO.getFirstName() + " " + registerDTO.getLastName());
+        student.setEmail(registerDTO.getEmail());
+        return student;
+    }
+
+    public Role getRoleByName(RoleEnum name) {
+        return this.roleRepository.getRoleByName(name);
     }
 }

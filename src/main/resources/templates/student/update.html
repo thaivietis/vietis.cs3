@@ -76,6 +76,15 @@
                             </select>
                         </div>
                         <div class="row mt-3">
+                            <label>Quyền hạn</label>
+                            <select class="form-select form-select-sm" aria-label=".form-select-sm example"
+                                th:field="*{role.name}">
+                                <option disabled value="" selected>Quyền hạn</option>
+                                <option th:value="ADMIN">Admin</option>
+                                <option th:value="USER">User</option>
+                            </select>
+                        </div>
+                        <div class="row mt-3">
                             <label for="avatarFile" class="form-label">Ảnh đại diện</label>
                             <input class="form-control" type="file" id="avatarFile" accept=".png, .jpg, .jpeg"
                                 name="avatarFile" />

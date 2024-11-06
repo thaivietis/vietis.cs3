@@ -37,8 +37,8 @@
                                 <tr>
                                     <th scope="col">STT</th>
                                     <th scope="col">Họ và tên</th>
-                                    <th scope="col">Giới tính</th>
                                     <th scope="col">Ngày sinh</th>
+                                    <th scope="col">Giới tính</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Hành động</th>
                                 </tr>
@@ -47,8 +47,8 @@
                                 <tr th:each="student : ${students}">
                                     <td></td>
                                     <td th:text="${student.fullName}"></td>
-                                    <td th:text="${student.gender}"></td>
                                     <td th:text="${student.dateOfBirth}"></td>
+                                    <td th:text="${student.gender}"></td>
                                     <td th:text="${student.email}"></td>
                                     <td>
                                         <a title="View" th:href="@{/student/detail/{id}(id=${student.id})}">Chi tiết</a>
