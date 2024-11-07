@@ -36,7 +36,6 @@ public class EnrollmentService implements IEnrollmentService {
             currentEnrollment.setDateStart(enrollment.getDateStart());
             currentEnrollment.setDateEnd(enrollment.getDateEnd());
             currentEnrollment.setStatus(enrollment.getStatus());
-            currentEnrollment.setQuantityStudent(enrollment.getQuantityStudent());
             return this.enrollmentRepository.save(currentEnrollment);
         }
         return null;

@@ -10,6 +10,9 @@ import com.nqt.cs3.dto.RegisterDTO;
 import com.nqt.cs3.service.IService.IStudentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.nqt.cs3.repository.RoleRepository;
@@ -75,5 +78,15 @@ public class StudentService implements IStudentService {
 
     public Role getRoleByName(RoleEnum name) {
         return this.roleRepository.getRoleByName(name);
+    }
+
+    public String getUserNameInContextHolder() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication(); 
+        Object principal = auth.getPrincipal();
+        if(principal instanceof UserDetails){
+            UserDetails userDetails = (UserDetails) principal;
+            return userDetails.getUsername();
+        }
+        return null;
     }
 }
