@@ -45,7 +45,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler{
         throw new IllegalStateException();
     }
 
-    protected void clearAuthenticationAttributes(HttpServletRequest request, Authentication authentication) {
+    protected void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         HttpSession session = request.getSession(false);
         if (session == null) {
             return;
@@ -66,7 +66,7 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler{
             return;
         }
         redirectStrategy.sendRedirect(request, response, targetUrl);
-        // clearAuthenticationAttributes(request, authentication);
+        clearAuthenticationAttributes(request, response, authentication);
     }
     
 }

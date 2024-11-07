@@ -34,9 +34,7 @@ public class Enrollment {
     Instant dateEnd;
     @Enumerated(EnumType.STRING)
     StatusEnum status;
-
-    // Số lượng sinh viên tham gia
-    long quantityStudent;
+    
 
     @ManyToOne
     @JoinColumn(name = "course_id")

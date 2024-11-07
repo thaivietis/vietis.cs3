@@ -13,7 +13,7 @@
     <!-- Navbar -->
     <header id="header" class="mb-3">
         <nav class="navbar navbar-expand-lg bg-body-tertiary bg-primary fixed-top" data-bs-theme="dark">
-            <div class="container-fluid justify-content-between">
+            <div class="container-fluid">
                 <a class="navbar-brand" th:href="@{/}">Course</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -34,11 +34,8 @@
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </div>
-                <div class="text-white d-flex">
-                    <a class="btn" type="button" th:href="@{/register}">Đăng ký</a>
-                    <a class="btn" type="button" th:href="@{/login}">Đăng nhập</a>
-                </div>
-                <div class="btn-group dropdown-center" style="margin-right: 100px; display: none;">
+                <!-- Example single danger button -->
+                <div class="btn-group dropdown-center" style="margin-right: 100px;">
                     <button type="button" class="btn btn-danger" data-bs-toggle="dropdown" aria-expanded="false" 
                     style="width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center;">
                         User
@@ -51,7 +48,7 @@
                         <li><a class="dropdown-item" href="#">Cài đặt</a></li>
                         <li><a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a></li>
                     </ul>
-                </div>  
+                </div>
             </div>
         </nav>
     </header>
@@ -60,38 +57,16 @@
     <sidebar id="sidebar">
     </sidebar>
     
-    <!-- Content (Khóa học trả phí)-->
+    <!-- Content -->
     <div class="container" style="margin-top: 100px;">
-        <h3 class="mb-3">Khóa học nâng cao</h1>
+        <h3 class="mb-3">Khóa học của tôi</h1>
         <div class="container">
             <div class="row justify-content-between">
-                <div class="card mb-3" style="width: 18rem;" th:each="advancedCourse : ${advancedCourses}">
+                <div class="card mb-3" style="width: 18rem;">
                     <a href="" class="card-img-top" style="text-decoration: none;"><img src="..." class="" alt="..."></a>
                     <div class="card-body">
-                        <a href="" style="text-decoration: none;" class="card-title"><h5 th:text="${advancedCourse.name}"></h5></a></br>
-                        <!-- Nội dung -->
-                        <p class="d-inline" th:text="${advancedCourse.description}"></p>
-                        <p class="card-text" th:text="${advancedCourse.price}">$</p>
-                        <a th:href="@{/detail-course/{id}(id = ${advancedCourse.id})}" class="btn btn-primary">Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Content (Khóa học miễn phí)-->
-    <div id="content" class="container my-5">
-        <h3 class="mb-3">Khóa học cơ bản</h1>
-        <div class="container">
-            <div class="row justify-content-between">
-                <div class="card mb-3" style="width: 18rem;" th:each="freeCourse : ${freeCourses}">
-                    <a href="" class="card-img-top" style="text-decoration: none;"><img src="..." class="" alt="..."></a>
-                    <div class="card-body">
-                        <a href="" style="text-decoration: none;" class="card-title"><h5 th:text="${freeCourse.name}">Card title</h5></a></br>
-                        <!-- Nội dung -->
-                        <p class="d-inline" th:text="${freeCourse.description}"></p>
-                        <p class="card-text">Miễn phí</p>
-                        <a th:href="@{/detail-course/{id}(id = ${freeCourse.id})}" class="btn btn-primary">Xem chi tiết</a>
+                        <a href="" style="text-decoration: none;" class="card-title"><h5>Tên khóa học</h5></a></br>
+                        <p class="card-text">Trạng thái</p>
                     </div>
                 </div>
             </div>
@@ -99,7 +74,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="py-4 bg-dark mt-auto">
+    <footer class="py-4 bg-dark mt-auto fixed-bottom">
         <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
                 <div class="text-white">Copyright &copy; Thái Nguyễn Quang</div>

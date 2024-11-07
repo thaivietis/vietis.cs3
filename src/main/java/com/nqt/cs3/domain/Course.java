@@ -26,7 +26,9 @@ public class Course {
     long id;
     String name;
     String description;
-    int maxStudent;
+    long maxStudent;
+    long quantityStudent;
+    private double price;
     String image;
     String instructor;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
