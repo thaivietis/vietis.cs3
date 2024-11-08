@@ -2,6 +2,7 @@ package com.nqt.cs3.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
+import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
 
 import jakarta.servlet.DispatcherType;
 
@@ -47,14 +49,23 @@ public class SpringSecurityConfig {
         }
 
         @Bean
+        public SpringSecurityDialect springSecurityDialect() {
+                return new SpringSecurityDialect();
+        }
+
+        @Bean
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
                 http
                         .csrf(csrf -> csrf.disable())
                         .authorizeHttpRequests(authorize -> authorize
                                 .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE)
                                 .permitAll()
-                                .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/assets/**", "/register/**", "/detail-course/**")
+                                .requestMatchers("/", "/css/**", "/js/**", "/images/**", "/assets/**", "/register/**")
                                 .permitAll()
+                                .requestMatchers(HttpMethod.GET, "/detail-course/**")
+                                .permitAll()
+                                .requestMatchers(HttpMethod.POST, "/detail-course/**")
+                                .authenticated()
                                 .requestMatchers("/student/**", "/course/**", "/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/enrollment/**").hasRole("USER")
                                 .anyRequest().authenticated()
@@ -75,7 +86,7 @@ public class SpringSecurityConfig {
                                                 .rememberMeServices(rememberMeServices())
                         )
                         .logout(logout -> logout
-                                .logoutSuccessUrl("/index")
+                                .logoutSuccessUrl("/")
                                 .logoutUrl("/logout")
                                 .deleteCookies("JSESSIONID").invalidateHttpSession(true)
                         );  

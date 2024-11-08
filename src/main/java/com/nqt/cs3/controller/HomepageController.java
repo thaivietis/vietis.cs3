@@ -1,13 +1,9 @@
 package com.nqt.cs3.controller;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nqt.cs3.constant.RoleEnum;
 import com.nqt.cs3.domain.Course;
+import com.nqt.cs3.domain.Enrollment;
 import com.nqt.cs3.domain.Student;
 import com.nqt.cs3.dto.RegisterDTO;
 import com.nqt.cs3.service.CourseService;
@@ -61,6 +59,26 @@ public class HomepageController {
         Course course = this.courseService.findById(id);
         model.addAttribute("course", course);
         return "client/detail_course";
+    }
+
+    @PostMapping("/detail-course")
+    public String postEnrollmentCourseById(@RequestParam("id") long id) {
+        String email = this.studentService.getUserNameInContextHolder();
+        this.courseService.updateQuantityStudentAfterEnrollmentCourse(id);
+        Enrollment enrollment = new Enrollment();
+        enrollment.setCourse(this.courseService.findById(id));
+        enrollment.setStudent(this.studentService.findByEmail(email));
+        this.enrollmentService.save(enrollment);
+        return "redirect:/";
+    }
+
+    @GetMapping("/enrollmented-course")
+    public String getAllEnrollmentCourse(Model model) {
+        List<Enrollment> enrollments = this.enrollmentService.findAll();
+        String email = this.studentService.getUserNameInContextHolder();
+        List<Enrollment> enrollmentStream = enrollments.stream().filter(enrollment -> enrollment.getStudent().getEmail().equals(email)).collect(Collectors.toList());
+        model.addAttribute("enrollments", enrollmentStream);
+        return "client/enrollmented_course";
     }
 
     @GetMapping("/login")

@@ -25,17 +25,10 @@ public class Enrollment {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
     Instant enrollmentDate;
 
-    //    Thời gian bắt đầu
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
-    Instant dateStart;
-
-    //    Thời gian kết thúc
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
-    Instant dateEnd;
+    
     @Enumerated(EnumType.STRING)
     StatusEnum status;
     
-
     @ManyToOne
     @JoinColumn(name = "course_id")
     Course course;
@@ -43,4 +36,9 @@ public class Enrollment {
     @ManyToOne
     @JoinColumn(name = "student_id")
     Student student;
+
+    @PrePersist
+    public void prePersist() {
+        enrollmentDate = Instant.now();
+    }
 }
