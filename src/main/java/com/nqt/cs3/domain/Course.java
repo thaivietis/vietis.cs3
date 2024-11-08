@@ -31,6 +31,13 @@ public class Course {
     private double price;
     String image;
     String instructor;
+    //    Thời gian bắt đầu
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
+    Instant dateStart;
+
+    //    Thời gian kết thúc
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
+    Instant dateEnd;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
     Instant createdAt;
 

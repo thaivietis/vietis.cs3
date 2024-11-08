@@ -34,8 +34,12 @@
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </div>
+                <div sec:authorize="isAnonymous()" class="text-white d-flex">
+                    <a class="btn" type="button" th:href="@{/register}">Đăng ký</a>
+                    <a class="btn" type="button" th:href="@{/login}">Đăng nhập</a>
+                </div>
                 <!-- Example single danger button -->
-                <div class="btn-group dropdown-center" style="margin-right: 100px;">
+                <div sec:authorize="isAuthenticated()" class="btn-group dropdown-center" style="margin-right: 100px;">
                     <button type="button" class="btn btn-danger" data-bs-toggle="dropdown" aria-expanded="false" 
                     style="width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center;">
                         User
@@ -43,7 +47,7 @@
                     <ul class="dropdown-menu ">
                         <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Khóa học của tôi</a></li>
+                        <li><a class="dropdown-item" th:href="@{/enrollmented-course}">Khóa học của tôi</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Cài đặt</a></li>
                         <li><a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a></li>
@@ -58,15 +62,15 @@
     </sidebar>
     
     <!-- Content -->
-    <div class="container" style="margin-top: 100px;">
+    <div class="container" style="margin-top: 100px; ">
         <h3 class="mb-3">Khóa học của tôi</h1>
-        <div class="container">
+        <div class="container" style="margin-bottom: 100px;">
             <div class="row justify-content-between">
-                <div class="card mb-3" style="width: 18rem;">
+                <div class="card mb-3" style="width: 18rem;" th:each="enrollment : ${enrollments}">
                     <a href="" class="card-img-top" style="text-decoration: none;"><img src="..." class="" alt="..."></a>
                     <div class="card-body">
-                        <a href="" style="text-decoration: none;" class="card-title"><h5>Tên khóa học</h5></a></br>
-                        <p class="card-text">Trạng thái</p>
+                        <a href="" style="text-decoration: none;" class="card-title"><h5 th:text="${enrollment.course.name}"></h5></a></br>
+                        <p class="card-text">Thời gian đăng ký</p>
                     </div>
                 </div>
             </div>
@@ -74,7 +78,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="py-4 bg-dark mt-auto fixed-bottom">
+    <footer class="py-4 bg-dark mt-auto">
         <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
                 <div class="text-white">Copyright &copy; Thái Nguyễn Quang</div>

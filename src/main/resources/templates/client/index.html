@@ -34,11 +34,11 @@
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </div>
-                <div class="text-white d-flex">
+                <div sec:authorize="isAnonymous()" class="text-white d-flex">
                     <a class="btn" type="button" th:href="@{/register}">Đăng ký</a>
                     <a class="btn" type="button" th:href="@{/login}">Đăng nhập</a>
                 </div>
-                <div class="btn-group dropdown-center" style="margin-right: 100px; display: none;">
+                <div sec:authorize="isAuthenticated()" class="btn-group dropdown-center" style="margin-right: 100px;">
                     <button type="button" class="btn btn-danger" data-bs-toggle="dropdown" aria-expanded="false" 
                     style="width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center;">
                         User
@@ -46,7 +46,7 @@
                     <ul class="dropdown-menu ">
                         <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Khóa học của tôi</a></li>
+                        <li><a class="dropdown-item" th:href="@{/enrollmented-course}">Khóa học của tôi</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Cài đặt</a></li>
                         <li><a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a></li>

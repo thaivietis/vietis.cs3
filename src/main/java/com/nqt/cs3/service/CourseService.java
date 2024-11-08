@@ -39,6 +39,8 @@ public class CourseService implements ICourseService {
             currentCourse.setMaxStudent(course.getMaxStudent());
             currentCourse.setImage(course.getImage());
             currentCourse.setInstructor(course.getInstructor());
+            currentCourse.setPrice(course.getPrice());
+            currentCourse.setQuantityStudent(course.getQuantityStudent());
             return this.save(currentCourse);
         }
         return null;
@@ -47,5 +49,13 @@ public class CourseService implements ICourseService {
     @Override
     public void delete(long id) {
         this.courseRepository.deleteById(id);
+    }
+
+    public void updateQuantityStudentAfterEnrollmentCourse(long id) {
+        Course currentCourse = this.findById(id);
+        if(currentCourse != null) {
+            currentCourse.setQuantityStudent(currentCourse.getQuantityStudent() + 1);
+            this.save(currentCourse);
+        }
     }
 }
