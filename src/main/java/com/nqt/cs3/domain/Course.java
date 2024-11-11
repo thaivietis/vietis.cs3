@@ -12,6 +12,7 @@ import java.time.Instant;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.nqt.cs3.anotation.FormatDateTime;
 
 @Data
 @NoArgsConstructor
@@ -32,16 +33,16 @@ public class Course {
     String image;
     String instructor;
     //    Thời gian bắt đầu
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
+    @FormatDateTime(zoneId = "Asia/Ho_Chi_Minh")
     Instant dateStart;
 
     //    Thời gian kết thúc
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
+    @FormatDateTime(zoneId = "Asia/Ho_Chi_Minh")
     Instant dateEnd;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
+    @FormatDateTime(zoneId = "Asia/Ho_Chi_Minh")
     Instant createdAt;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
+    @FormatDateTime(zoneId = "Asia/Ho_Chi_Minh")
     Instant updatedAt;
     String createdBy;
     String updatedBy;

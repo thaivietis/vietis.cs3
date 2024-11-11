@@ -11,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ReportRegisterCourseDTO {
+    String  nameStudent;
     String nameCourse;
     long quantityStudent;
 }

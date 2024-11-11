@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -22,8 +23,7 @@ public class Enrollment {
     long id;
     
     //  Thời gian đăng ký khóa học
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
-    Instant enrollmentDate;
+    LocalDate enrollmentDate;
 
     
     @Enumerated(EnumType.STRING)
@@ -39,6 +39,6 @@ public class Enrollment {
 
     @PrePersist
     public void prePersist() {
-        enrollmentDate = Instant.now();
+        enrollmentDate = LocalDate.now();
     }
 }

@@ -5,6 +5,9 @@ import com.nqt.cs3.repository.EnrollmentRepository;
 import com.nqt.cs3.service.IService.IEnrollmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
