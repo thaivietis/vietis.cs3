@@ -1,6 +1,5 @@
 package com.nqt.cs3.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.nqt.cs3.constant.StatusEnum;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -9,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import java.time.Instant;
 import java.time.LocalDate;
 
 @Data
@@ -19,16 +17,16 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "enrollments")
 public class Enrollment {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
-    
-    //  Thời gian đăng ký khóa học
+
+    // Thời gian đăng ký khóa học
     LocalDate enrollmentDate;
 
-    
     @Enumerated(EnumType.STRING)
     StatusEnum status;
-    
+
     @ManyToOne
     @JoinColumn(name = "course_id")
     Course course;

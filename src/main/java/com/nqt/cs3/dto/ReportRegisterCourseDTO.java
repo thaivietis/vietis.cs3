@@ -1,5 +1,7 @@
 package com.nqt.cs3.dto;
 
+import com.nqt.cs3.domain.Course;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +13,6 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ReportRegisterCourseDTO {
-    String  nameStudent;
-    String nameCourse;
-    long quantityStudent;
+    Course nameCourse;
+    Long studentRegistered;
 }

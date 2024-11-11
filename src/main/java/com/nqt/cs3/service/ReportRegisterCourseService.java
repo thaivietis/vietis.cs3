@@ -2,18 +2,16 @@ package com.nqt.cs3.service;
 
 import org.springframework.batch.item.ItemProcessor;
 
-import com.nqt.cs3.domain.Enrollment;
 import com.nqt.cs3.dto.ReportRegisterCourseDTO;
 
-public class ReportRegisterCourseService implements ItemProcessor<Enrollment, ReportRegisterCourseDTO>{
+public class ReportRegisterCourseService implements ItemProcessor<ReportRegisterCourseDTO, ReportRegisterCourseDTO> {
 
     @Override
-    public ReportRegisterCourseDTO process(Enrollment item) throws Exception {
+    public ReportRegisterCourseDTO process(ReportRegisterCourseDTO item) throws Exception {
         ReportRegisterCourseDTO reportRegisterCourseDTO = new ReportRegisterCourseDTO();
-        reportRegisterCourseDTO.setNameStudent(item.getStudent().getFullName());
-        reportRegisterCourseDTO.setNameCourse(item.getCourse().getName());
-        reportRegisterCourseDTO.setQuantityStudent(item.getCourse().getQuantityStudent());
+        reportRegisterCourseDTO.setNameCourse(item.getNameCourse());
+        reportRegisterCourseDTO.setStudentRegistered(item.getStudentRegistered());
         return reportRegisterCourseDTO;
-    }  
-    
+    }
+
 }
