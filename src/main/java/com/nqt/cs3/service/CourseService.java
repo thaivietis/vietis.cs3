@@ -1,5 +1,7 @@
 package com.nqt.cs3.service;
 
+import com.nqt.cs3.constant.GlobalConstant;
+import com.nqt.cs3.constant.*;
 import com.nqt.cs3.domain.Course;
 import com.nqt.cs3.repository.CourseRepository;
 import com.nqt.cs3.service.IService.ICourseService;
@@ -53,8 +55,8 @@ public class CourseService implements ICourseService {
 
     public void updateQuantityStudentAfterEnrollmentCourse(long id) {
         Course currentCourse = this.findById(id);
-        if(currentCourse != null) {
-            currentCourse.setQuantityStudent(currentCourse.getQuantityStudent() + 1);
+        if(currentCourse != null && currentCourse.getQuantityStudent() <= currentCourse.getMaxStudent()) {
+            currentCourse.setQuantityStudent(currentCourse.getQuantityStudent() + GlobalConstant.A_STUDENT_CLICK_REGISTER);
             this.save(currentCourse);
         }
     }

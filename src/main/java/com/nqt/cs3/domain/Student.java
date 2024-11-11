@@ -1,7 +1,8 @@
 package com.nqt.cs3.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.nqt.cs3.constant.GenderEnum;
+import com.nqt.cs3.constant.*;
+
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,7 +11,10 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @NoArgsConstructor
@@ -30,14 +34,8 @@ public class Student {
     String phoneNumber;
     String email;
     String avatar;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
-    Instant dateOfBirth;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
+    LocalDate dateOfBirth;
     Instant createdAt;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
     Instant updatedAt;
     String createdBy;
     String updatedBy;

@@ -10,9 +10,10 @@ public class ReportRegisterCourseService implements ItemProcessor<Enrollment, Re
     @Override
     public ReportRegisterCourseDTO process(Enrollment item) throws Exception {
         ReportRegisterCourseDTO reportRegisterCourseDTO = new ReportRegisterCourseDTO();
+        reportRegisterCourseDTO.setNameStudent(item.getStudent().getFullName());
         reportRegisterCourseDTO.setNameCourse(item.getCourse().getName());
         reportRegisterCourseDTO.setQuantityStudent(item.getCourse().getQuantityStudent());
         return reportRegisterCourseDTO;
-    }
+    }  
     
 }
