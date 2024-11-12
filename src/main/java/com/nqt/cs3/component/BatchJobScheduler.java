@@ -22,11 +22,11 @@ public class BatchJobScheduler {
         this.importUserJob = importUserJob;
     }
 
-    @Scheduled(cron = "0/10 * * * * *")
+    @Scheduled(cron = "* 0/30 * * * *")
     public void runBatchJob() throws JobExecutionException, NoSuchJobException {
         JobParameters jobParameters = new JobParametersBuilder()
-                .addLong("timestamp", Instant.now().getEpochSecond())
-                .toJobParameters();
+            .addLong("runTime", System.currentTimeMillis())
+            .toJobParameters();
         jobLauncher.run(importUserJob, jobParameters);
     }
 }
