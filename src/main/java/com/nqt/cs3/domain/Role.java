@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "roles")
+@Table(name = "role")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +23,6 @@ public class Role {
     private RoleEnum name;
     private String description;
 
-    @OneToMany(mappedBy = "role")
-    private List<Student> students;
+    // @OneToMany(mappedBy = "role")
+    // private List<Student> students;
 }

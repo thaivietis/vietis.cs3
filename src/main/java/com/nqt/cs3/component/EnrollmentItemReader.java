@@ -15,18 +15,18 @@ import org.springframework.stereotype.Component;
 
 import com.nqt.cs3.domain.Course;
 import com.nqt.cs3.domain.Enrollment;
-import com.nqt.cs3.dto.ReportRegisterCourseDTO;
+import com.nqt.cs3.dto.ReaderItemDTO;
 import com.nqt.cs3.service.EnrollmentService;
 
 import jakarta.annotation.PostConstruct;
 
 @Component
-public class EnrollmentItemReader implements ItemReader<ReportRegisterCourseDTO> {
+public class EnrollmentItemReader implements ItemReader<ReaderItemDTO> {
 
     private final EnrollmentService enrollmentService;
     private List<Enrollment> enrollments;
     Map<Course, Long> courseEnrollmentCount;
-    private List<ReportRegisterCourseDTO> enrollmentList;
+    private List<ReaderItemDTO> enrollmentList;
     private int nextIndex = 0;
 
     public EnrollmentItemReader(EnrollmentService enrollmentService) {
@@ -44,12 +44,12 @@ public class EnrollmentItemReader implements ItemReader<ReportRegisterCourseDTO>
         courseEnrollmentCount = enrollments.stream()
                 .collect(Collectors.groupingBy(Enrollment::getCourse, Collectors.counting()));
         enrollmentList = courseEnrollmentCount.entrySet().stream()
-                .map(entry -> new ReportRegisterCourseDTO(entry.getKey(), entry.getValue()))
+                .map(entry -> new ReaderItemDTO(entry.getKey().getName(), entry.getValue()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public ReportRegisterCourseDTO read()
+    public ReaderItemDTO read()
             throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
         if (nextIndex < enrollmentList.size()) {
             return enrollmentList.get(nextIndex++);

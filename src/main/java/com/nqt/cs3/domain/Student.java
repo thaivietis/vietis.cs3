@@ -40,8 +40,8 @@ public class Student {
     String createdBy;
     String updatedBy;
 
-    @OneToMany(mappedBy = "student")
-    List<Enrollment> enrollments;
+    // @OneToMany(mappedBy = "student")
+    // List<Enrollment> enrollments;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

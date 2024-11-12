@@ -47,8 +47,8 @@ public class Course {
     String createdBy;
     String updatedBy;
 
-    @OneToMany(mappedBy = "course")
-    List<Enrollment> enrollments;
+    // @OneToMany(mappedBy = "course")
+    // List<Enrollment> enrollments;
 
     @PrePersist
     public void prePersist() {
