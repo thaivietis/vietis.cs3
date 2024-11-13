@@ -20,16 +20,16 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Báo cáo tuần</h1>
+                    <h1 class="mt-4">Báo cáo</h1>
                     <div>
                         <table class="table table-hover table-responsive-xl">
                             <thead class="thead-light">
-                                <tr>
+                                <tr th:each="report : ${reports}">
                                     <th scope="col">STT</th>
-                                    <th scope="col">Khóa học</th>
-                                    <th scope="col">Số lượng đăng ký</th>
-                                    <th scope="col">Tuần</th>
-                                    <th scope="col">Ngày báo cáo</th>
+                                    <th scope="col" th:text="${report.nameCourse}">Khóa học</th>
+                                    <th scope="col" th:text="${report.studentRegistered}">Số lượng đăng ký</th>
+                                    <th scope="col" th:text="${report.startDate} - ${report.endDate}">Tuần</th>
+                                    <th scope="col" th:text="${report.reportDate}">Ngày báo cáo</th>
                                     <th scope="col">Hành động</th>
                                 </tr>
                             </thead>
