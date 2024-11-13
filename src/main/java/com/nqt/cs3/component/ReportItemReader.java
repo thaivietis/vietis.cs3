@@ -2,7 +2,6 @@ package com.nqt.cs3.component;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,7 +20,7 @@ import com.nqt.cs3.service.EnrollmentService;
 import jakarta.annotation.PostConstruct;
 
 @Component
-public class EnrollmentItemReader implements ItemReader<ReaderItemDTO> {
+public class ReportItemReader implements ItemReader<ReaderItemDTO> {
 
     private final EnrollmentService enrollmentService;
     private List<Enrollment> enrollments;
@@ -29,7 +28,7 @@ public class EnrollmentItemReader implements ItemReader<ReaderItemDTO> {
     private List<ReaderItemDTO> enrollmentList;
     private int nextIndex = 0;
 
-    public EnrollmentItemReader(EnrollmentService enrollmentService) {
+    public ReportItemReader(EnrollmentService enrollmentService) {
         this.enrollmentService = enrollmentService;
     }
 

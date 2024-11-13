@@ -26,18 +26,18 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import com.nqt.cs3.component.EnrollmentItemReader;
+import com.nqt.cs3.component.ReportItemReader;
+import com.nqt.cs3.component.ReportItemProcess;
 import com.nqt.cs3.dto.ReaderItemDTO;
 import com.nqt.cs3.dto.ReportDTO;
 import com.nqt.cs3.service.EnrollmentService;
-import com.nqt.cs3.service.ReportRegisterCourseService;
 import com.nqt.cs3.service.ReportService;
 
 import jakarta.persistence.EntityManagerFactory;
 
 @Configuration
 @EnableScheduling
-public class SpringBatchConfig {
+public class SpringJobReportConfig {
 
 	@Autowired
 	private JobRepository jobRepository;
@@ -46,7 +46,7 @@ public class SpringBatchConfig {
     private ReportService reportService;
 	
 	@Bean
-	public Job importUserJob(Step step1) {
+	public Job reportJob(Step step1) {
 		System.out.println("Job");
 		return new JobBuilder("importUserJob", jobRepository)
 				.start(step1)
@@ -56,7 +56,7 @@ public class SpringBatchConfig {
 
 	@Bean
 	public Step step1(JobRepository jobRepository, PlatformTransactionManager transactionManager,
-			EnrollmentItemReader reader, ReportRegisterCourseService processor,
+			ReportItemReader reader, ReportItemProcess processor,
 			FlatFileItemWriter<ReportDTO> writer) {
 		System.out.println("step1");
 		return new StepBuilder("step1", jobRepository)
@@ -69,16 +69,16 @@ public class SpringBatchConfig {
 
 	@Bean
 	@StepScope
-	public EnrollmentItemReader reader(EnrollmentService enrollmentService) {
+	public ReportItemReader reader(EnrollmentService enrollmentService) {
 		System.out.println("reader");
-		return new EnrollmentItemReader(enrollmentService);
+		return new ReportItemReader(enrollmentService);
 	}
 
 	@Bean
 	@StepScope
-	public ReportRegisterCourseService processor() {
+	public ReportItemProcess processor() {
 		System.out.println("processor");
-		return new ReportRegisterCourseService();
+		return new ReportItemProcess();
 	}
 
 	@Bean
