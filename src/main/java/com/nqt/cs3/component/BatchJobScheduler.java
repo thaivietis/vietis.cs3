@@ -1,6 +1,6 @@
 package com.nqt.cs3.component;
 
-import java.time.Instant;
+import java.util.UUID;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecutionException;
@@ -22,10 +22,10 @@ public class BatchJobScheduler {
         this.importUserJob = importUserJob;
     }
 
-    @Scheduled(cron = "* 0/30 * * * *")
+    @Scheduled(cron = "0/40 * * * * *")
     public void runBatchJob() throws JobExecutionException, NoSuchJobException {
         JobParameters jobParameters = new JobParametersBuilder()
-            .addLong("runTime", System.currentTimeMillis())
+            .addString("uniqueKey", UUID.randomUUID().toString())
             .toJobParameters();
         jobLauncher.run(importUserJob, jobParameters);
     }

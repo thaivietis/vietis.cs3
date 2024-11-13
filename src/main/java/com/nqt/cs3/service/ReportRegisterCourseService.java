@@ -6,14 +6,15 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
 import com.nqt.cs3.dto.ReaderItemDTO;
-import com.nqt.cs3.dto.ReportWeekDTO;
+import com.nqt.cs3.dto.ReportDTO;
 
 @Component
-public class ReportRegisterCourseService implements ItemProcessor<ReaderItemDTO, ReportWeekDTO> {
+public class ReportRegisterCourseService implements ItemProcessor<ReaderItemDTO, ReportDTO> {
 
     @Override
-    public ReportWeekDTO process(ReaderItemDTO item) throws Exception {
-        ReportWeekDTO report = new ReportWeekDTO();
+    public ReportDTO process(ReaderItemDTO item) throws Exception {
+        System.out.println("Start process");
+        ReportDTO report = new ReportDTO();
         report.setNameCourse(item.getNameCourse());
         report.setStudentRegistered(item.getStudentRegistered());
         report.setStartDate(LocalDate.now().with(java.time.DayOfWeek.MONDAY));
