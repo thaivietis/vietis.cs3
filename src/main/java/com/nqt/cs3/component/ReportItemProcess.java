@@ -1,4 +1,4 @@
-package com.nqt.cs3.service;
+package com.nqt.cs3.component;
 
 import java.time.LocalDate;
 
@@ -9,7 +9,7 @@ import com.nqt.cs3.dto.ReaderItemDTO;
 import com.nqt.cs3.dto.ReportDTO;
 
 @Component
-public class ReportRegisterCourseService implements ItemProcessor<ReaderItemDTO, ReportDTO> {
+public class ReportItemProcess implements ItemProcessor<ReaderItemDTO, ReportDTO> {
 
     @Override
     public ReportDTO process(ReaderItemDTO item) throws Exception {

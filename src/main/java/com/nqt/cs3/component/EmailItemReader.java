@@ -10,19 +10,20 @@ import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
+import org.springframework.stereotype.Component;
 
-import com.nqt.cs3.domain.Course;
 import com.nqt.cs3.domain.Enrollment;
-import com.nqt.cs3.dto.ReaderItemDTO;
+import com.nqt.cs3.dto.EmailReaderItemDTO;
 import com.nqt.cs3.service.EnrollmentService;
 
 import jakarta.annotation.PostConstruct;
 
-public class EmailItemReader implements ItemReader<ReaderItemDTO>{
+@Component
+public class EmailItemReader implements ItemReader<EmailReaderItemDTO> {
 
     private final EnrollmentService enrollmentService;
     private List<Enrollment> enrollments;
-    private List<ReaderItemDTO> enrollmentList;
+    private List<EmailReaderItemDTO> enrollmentList;
     private int nextIndex = 0;
 
     public EmailItemReader(EnrollmentService enrollmentService) {
@@ -33,18 +34,14 @@ public class EmailItemReader implements ItemReader<ReaderItemDTO>{
     public void init() {
         LocalDate startOfWeek = LocalDate.now().with(DayOfWeek.MONDAY);
         LocalDate endOfWeek = LocalDate.now().with(DayOfWeek.SUNDAY);
-        enrollments = enrollmentService.findAll().stream()
-                .filter(enrollment -> !enrollment.getEnrollmentDate().isBefore(startOfWeek) &&
-                        !enrollment.getEnrollmentDate().isAfter(endOfWeek))
-                .collect(Collectors.toList());
-            
+
     }
 
     @Override
-    public ReaderItemDTO read()
+    public EmailReaderItemDTO read()
             throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'read'");
     }
-    
+
 }

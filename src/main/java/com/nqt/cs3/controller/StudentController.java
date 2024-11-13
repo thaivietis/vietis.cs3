@@ -1,6 +1,5 @@
 package com.nqt.cs3.controller;
 
-import com.nqt.cs3.conversion.DateTimeFormat;
 import com.nqt.cs3.domain.Student;
 import com.nqt.cs3.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +17,6 @@ public class StudentController {
 
     @Autowired
     public StudentService studentService;
-
-    @Autowired
-    public DateTimeFormat dateTimeFormat;
 
     @GetMapping("/student")
     public String getAllStudent(Model model) {
@@ -73,5 +69,5 @@ public class StudentController {
         this.studentService.delete(student.getId());
         return "redirect:/student";
     }
-    
+
 }
