@@ -3,7 +3,6 @@ package com.nqt.cs3.config;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
-import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
@@ -53,7 +52,7 @@ public class SpringJobEmailConfig {
             ItemWriter<EmailReaderItemDTO> writerEmail) {
         System.out.println("stepSendMail");
         return new StepBuilder("stepSendMail", jobRepository)
-                .<EmailReaderItemDTO, EmailReaderItemDTO>chunk(1, transactionManager)
+                .<EmailReaderItemDTO, EmailReaderItemDTO>chunk(4, transactionManager)
                 .reader(readerEmail)
                 .processor(processorEmail)
                 .writer(writerEmail)

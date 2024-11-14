@@ -1,7 +1,6 @@
 package com.nqt.cs3.service;
 
 import com.nqt.cs3.constant.GlobalConstant;
-import com.nqt.cs3.constant.*;
 import com.nqt.cs3.domain.Course;
 import com.nqt.cs3.repository.CourseRepository;
 import com.nqt.cs3.service.IService.ICourseService;

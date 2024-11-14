@@ -24,22 +24,24 @@
                     <div>
                         <table class="table table-hover table-responsive-xl">
                             <thead class="thead-light">
-                                <tr th:each="report : ${reports}">
+                                <tr>
                                     <th scope="col">STT</th>
-                                    <th scope="col" th:text="${report.nameCourse}">Khóa học</th>
-                                    <th scope="col" th:text="${report.studentRegistered}">Số lượng đăng ký</th>
-                                    <th scope="col" th:text="${report.startDate} - ${report.endDate}">Tuần</th>
-                                    <th scope="col" th:text="${report.reportDate}">Ngày báo cáo</th>
+                                    <th scope="col">Khóa học</th>
+                                    <th scope="col">Tuần</th>
+                                    <th scope="col">Ngày báo cáo</th>
                                     <th scope="col">Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <tr th:each="report : ${reports}">
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td th:text="${report.nameReport}"></td>
+                                    <td>
+                                        <span th:text="${report.startDate}"></span>
+                                        -
+                                        <span th:text="${report.endDate}"></span>
+                                    </td>
+                                    <td th:text="${report.reportDate}"></td>
                                     <td>
                                         <a class="btn btn-primary btn-sm">
                                             Tải báo cáo

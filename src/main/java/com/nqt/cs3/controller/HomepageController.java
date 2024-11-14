@@ -1,6 +1,7 @@
 package com.nqt.cs3.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import com.nqt.cs3.dto.RegisterDTO;
 import com.nqt.cs3.service.CourseService;
 import com.nqt.cs3.service.EnrollmentService;
 import com.nqt.cs3.service.StudentService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomepageController {
@@ -57,7 +60,10 @@ public class HomepageController {
     @GetMapping("/detail-course/{id}")
     public String getEnrollmentCourseById(@PathVariable("id") long id, Model model) {
         Course course = this.courseService.findById(id);
+        Student student = this.studentService.findByEmail(this.studentService.getUserNameInContextHolder());
+        Optional<Enrollment> checkEnrollment = this.enrollmentService.findByCourseIdAndUserId(course.getId(), student.getId());
         model.addAttribute("course", course);
+        model.addAttribute("checkEnrollment", checkEnrollment);
         return "client/detail_course";
     }
 
@@ -86,6 +92,13 @@ public class HomepageController {
         return "auth/login";
     }
 
+    @PostMapping("/login-success")
+    public String loginSuccess(HttpSession session) {
+        Student student = this.studentService.findByEmail(this.studentService.getUserNameInContextHolder());
+        session.setAttribute("fullName", student.getFullName());
+        return "redirect:/admin";
+
+    }
     @GetMapping("/logout")
     public String logout(Model model) {
         return "redirect:/login";

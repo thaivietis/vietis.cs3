@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nqt.cs3.domain.Report;
-import com.nqt.cs3.dto.ReportDTO;
 import com.nqt.cs3.repository.ReportRepository;
 import com.nqt.cs3.service.IService.IReportService;
 

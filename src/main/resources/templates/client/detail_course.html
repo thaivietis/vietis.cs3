@@ -106,11 +106,21 @@
                     <div class="row">
                         <img src="..." class="" alt="...">
                         <p th:text="${course.price} != 0 ? ${course.price}:'Miễn phí'"></p>
-                        <button th:if="${#authorization.expression('isAuthenticated()')}" type="button"
-                            class="btn btn-primary" style="width: auto;" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">Đăng ký khóa học</button>
-                        <a th:if="${#authorization.expression('isAnonymous()')}" class="btn btn-primary"
-                            style="width: auto;" th:href="@{/login}">Đăng ký khóa học</a>
+                        <button th:if="${#authorization.expression('isAuthenticated()')}" 
+                            type="button"
+                            class="btn btn-primary" 
+                            style="width: auto;" 
+                            data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"
+                            th:text="${checkEnrollment} == null ? 'Đăng ký khóa học': 'Khóa học đã đăng ký'"
+                            th:attr="${checkEnrollment} == null ? 'disabled' : null"
+                            th:classappend="${checkEnrollment} == null ? 'btn-primary' : 'btn-success'">Đăng ký khóa học</button>
+                        <a th:if="${#authorization.expression('isAnonymous()')}" class="btn"
+                            style="width: auto;" 
+                            th:href="@{/login}"
+                            th:text="${checkEnrollment} == null ? 'Đăng ký khóa học': 'Khóa học đã đăng ký'"
+                            th:attr="${checkEnrollment} == null ? 'disabled' : null"
+                            th:classappend="${checkEnrollment} == null ? 'btn-primary' : 'btn-success'">Đăng ký khóa học</a>
                         <!-- Modal -->
                         <div sec:authorize="isAuthenticated()" class="modal fade" id="exampleModal" tabindex="-1"
                             aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -147,7 +157,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="py-4 bg-dark mt-auto fixed-bottom">
+    <footer class="py-4 bg-dark mt-auto">
         <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
                 <div class="text-white">Copyright &copy; Thái Nguyễn Quang</div>

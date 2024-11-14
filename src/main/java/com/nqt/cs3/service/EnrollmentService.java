@@ -6,9 +6,8 @@ import com.nqt.cs3.service.IService.IEnrollmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EnrollmentService implements IEnrollmentService {
@@ -45,5 +44,10 @@ public class EnrollmentService implements IEnrollmentService {
     @Override
     public void delete(long id) {
         this.enrollmentRepository.deleteById(id);
+    }
+
+    @Override
+    public Optional<Enrollment> findByCourseIdAndUserId(long courseId, long userId) {
+        return this.enrollmentRepository.findByStudentIdAndCourseId(userId, courseId);
     }
 }
