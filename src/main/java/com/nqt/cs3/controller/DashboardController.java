@@ -6,10 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.nqt.cs3.domain.Report;
 import com.nqt.cs3.service.ReportService;
-import com.nqt.cs3.service.StudentService;
-
 @Controller
 @EnableWebSecurity
 public class DashboardController {

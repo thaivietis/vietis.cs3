@@ -12,7 +12,6 @@ import java.time.Instant;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.nqt.cs3.anotation.FormatDateTime;
 
 @Data
 @NoArgsConstructor
@@ -33,16 +32,12 @@ public class Course {
     String image;
     String instructor;
     //    Thời gian bắt đầu
-    @FormatDateTime(zoneId = "Asia/Ho_Chi_Minh")
     Instant dateStart;
 
     //    Thời gian kết thúc
-    @FormatDateTime(zoneId = "Asia/Ho_Chi_Minh")
     Instant dateEnd;
-    @FormatDateTime(zoneId = "Asia/Ho_Chi_Minh")
     Instant createdAt;
 
-    @FormatDateTime(zoneId = "Asia/Ho_Chi_Minh")
     Instant updatedAt;
     String createdBy;
     String updatedBy;

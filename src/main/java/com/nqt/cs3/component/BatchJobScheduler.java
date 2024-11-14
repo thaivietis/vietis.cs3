@@ -8,6 +8,8 @@ import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.NoSuchJobException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -15,18 +17,26 @@ import org.springframework.stereotype.Component;
 public class BatchJobScheduler {
 
     private final JobLauncher jobLauncher;
-    private final Job importUserJob;
+    @Qualifier("reportJob")
+    private final Job reportJob;
+    @Qualifier("sendMailJob")
+    private final Job sendMailJob;
 
-    public BatchJobScheduler(JobLauncher jobLauncher, Job importUserJob) {
+    public BatchJobScheduler(JobLauncher jobLauncher,@Qualifier("reportJob") Job reportJob, @Qualifier("sendMailJob") Job sendMailJob) {
         this.jobLauncher = jobLauncher;
-        this.importUserJob = importUserJob;
+        this.reportJob = reportJob;
+        this.sendMailJob = sendMailJob;
     }
 
     @Scheduled(cron = "0/40 * * * * *")
-    public void runBatchJob() throws JobExecutionException, NoSuchJobException {
-        JobParameters jobParameters = new JobParametersBuilder()
-            .addString("uniqueKey", UUID.randomUUID().toString())
+    public void runBatchReportJob() throws JobExecutionException, NoSuchJobException {
+        JobParameters reportJobParameters = new JobParametersBuilder()
+            .addString("uniqueKeyReportJob", UUID.randomUUID().toString())
             .toJobParameters();
-        jobLauncher.run(importUserJob, jobParameters);
+        jobLauncher.run(reportJob, reportJobParameters);
+        JobParameters sendMailJobParameters = new JobParametersBuilder()
+            .addString("uniqueKeySendMailJob", UUID.randomUUID().toString())
+            .toJobParameters();
+        jobLauncher.run(sendMailJob, sendMailJobParameters);
     }
 }

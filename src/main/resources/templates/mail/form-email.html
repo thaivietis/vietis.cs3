@@ -4,10 +4,18 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
   <body>
-    <p>Thân gửi, <span>Lê Văn Luận</span></p>
-    <p>Đăng ký khóa học dùm đi, khóa học ở dưới đây nè!</p>
-    <p>
-        <img src="../../static/images/upload/img.jpg" alt="Khóa học">
-    </p>
+    <p>Thân gửi, <span th:text="${name}"></span></p>
+    <p>Dưới đây là danh sách khóa học bạn chưa đăng ký. Yêu cầu hãy đăng ký</p>
+    <ul th:each="course : ${courses}">
+      <li>
+          <span th:text="${course.name}">Tên khóa học</span>
+      </li>
+      <li>
+        <span th:text="${course.dateStart}">Tên khóa học</span>
+      </li>
+      <li>
+        <span th:text="${course.dateEnd}">Tên khóa học</span>
+      </li>
+    </ul>
   </body>
 </html>
