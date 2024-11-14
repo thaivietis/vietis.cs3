@@ -13,7 +13,6 @@ public class ReportItemProcess implements ItemProcessor<ReaderItemDTO, ReportDTO
 
     @Override
     public ReportDTO process(ReaderItemDTO item) throws Exception {
-        System.out.println("Start process");
         ReportDTO report = new ReportDTO();
         report.setNameCourse(item.getNameCourse());
         report.setStudentRegistered(item.getStudentRegistered());

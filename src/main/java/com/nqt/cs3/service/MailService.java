@@ -1,17 +1,15 @@
 package com.nqt.cs3.service;
 
-import java.util.Map;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
+import com.nqt.cs3.domain.Course;
 import com.nqt.cs3.service.IService.IMailService;
 
 import jakarta.mail.MessagingException;
@@ -28,15 +26,15 @@ public class MailService implements IMailService {
     private JavaMailSender emailSender;
 
     @Override
-    public void sendMessageUsingThymeleafTemplate(String to, String subject) throws MessagingException {
+    public void sendMessageUsingThymeleafTemplate(String to, String subject, String name, List<Course> courseList) throws MessagingException {
         Context thymeleafContext = new Context();
-        String htmlBody = thymeleafTemplateEngine.process("/mail/form-email.html", thymeleafContext);
-
+        thymeleafContext.setVariable("name", name);
+        thymeleafContext.setVariable("courses", courseList);
+        String htmlBody = thymeleafTemplateEngine.process("mail/form-email.html", thymeleafContext);
         sendHtmlMessage(to, subject, htmlBody);
     }
 
     public void sendHtmlMessage(String to, String subject, String htmlBody) throws MessagingException {
-
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
         helper.setFrom(NOREPLY_ADDRESS);

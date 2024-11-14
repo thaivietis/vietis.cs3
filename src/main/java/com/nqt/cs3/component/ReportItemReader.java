@@ -34,7 +34,6 @@ public class ReportItemReader implements ItemReader<ReaderItemDTO> {
 
     @PostConstruct
     public void init() {
-        System.out.println("Start read");
         LocalDate startOfWeek = LocalDate.now().with(DayOfWeek.MONDAY);
         LocalDate endOfWeek = LocalDate.now().with(DayOfWeek.SUNDAY);
         enrollments = enrollmentService.findAll().stream()
