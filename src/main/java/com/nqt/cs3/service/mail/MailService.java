@@ -1,4 +1,4 @@
-package com.nqt.cs3.service;
+package com.nqt.cs3.service.mail;
 
 import java.util.List;
 
@@ -10,7 +10,6 @@ import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import com.nqt.cs3.domain.Course;
-import com.nqt.cs3.service.IService.IMailService;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

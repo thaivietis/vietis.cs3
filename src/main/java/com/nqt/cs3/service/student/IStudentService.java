@@ -1,4 +1,4 @@
-package com.nqt.cs3.service.IService;
+package com.nqt.cs3.service.student;
 
 import com.nqt.cs3.domain.Student;
 import com.nqt.cs3.dto.RegisterDTO;

@@ -18,10 +18,10 @@ import com.nqt.cs3.component.EmailItemProcess;
 import com.nqt.cs3.component.EmailItemReader;
 import com.nqt.cs3.domain.Student;
 import com.nqt.cs3.dto.EmailReaderItemDTO;
-import com.nqt.cs3.service.CourseService;
-import com.nqt.cs3.service.EnrollmentService;
-import com.nqt.cs3.service.MailService;
-import com.nqt.cs3.service.StudentService;
+import com.nqt.cs3.service.course.CourseService;
+import com.nqt.cs3.service.enrollment.EnrollmentService;
+import com.nqt.cs3.service.mail.MailService;
+import com.nqt.cs3.service.student.StudentService;
 
 
 @Configuration

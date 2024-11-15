@@ -1,13 +1,16 @@
-package com.nqt.cs3.service;
+package com.nqt.cs3.service.course;
 
 import com.nqt.cs3.constant.GlobalConstant;
 import com.nqt.cs3.domain.Course;
 import com.nqt.cs3.repository.CourseRepository;
-import com.nqt.cs3.service.IService.ICourseService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseService implements ICourseService {
@@ -25,8 +28,8 @@ public class CourseService implements ICourseService {
     }
 
     @Override
-    public List<Course> findAll() {
-        return this.courseRepository.findAll();
+    public Page<Course> getCoursePage(Pageable pageable) {
+        return this.courseRepository.findAll(pageable);
     }
 
     @Override
@@ -58,5 +61,29 @@ public class CourseService implements ICourseService {
             currentCourse.setQuantityStudent(currentCourse.getQuantityStudent() + GlobalConstant.A_STUDENT_CLICK_REGISTER);
             this.save(currentCourse);
         }
+    }
+
+    public boolean checkQuantityStudent(long id) {
+        Course currentCourse = this.findById(id);
+        return currentCourse.getQuantityStudent() < currentCourse.getMaxStudent();
+    }
+
+    @Override
+    public List<Course> findAllCourse() {
+        return this.courseRepository.findAll();
+    }
+
+    public List<Course> filterBaseCourse(){
+        List<Course> courses = this.findAllCourse();
+        return courses.stream()
+            .filter(course -> course.getPrice() == 0)
+            .collect(Collectors.toList());
+    }
+
+    public List<Course> filterEnhanceCourse(){
+        List<Course> courses = this.findAllCourse();
+        return courses.stream()
+            .filter(course -> course.getPrice() > 0)
+            .collect(Collectors.toList());
     }
 }

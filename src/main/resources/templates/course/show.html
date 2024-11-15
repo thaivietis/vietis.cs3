@@ -57,6 +57,27 @@
                         </tr>
                         </tbody>
                     </table>
+                    <div aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item">
+                                <a th:classappend="${currentPage == 1} ? 'page-link disabled' : 'page-link'"
+                                    th:href="@{/course(page=${currentPage-1})}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item" th:each="page : ${#numbers.sequence(1, totalPage)}"
+                                th:classappend="${page == currentPage} ? 'active':''">
+                                <a class="page-link" th:href="@{/course(page=${page})}"
+                                    th:text="${page}"></a>
+                            </li>
+                            <li class="page-item">
+                                <a th:classappend="${currentPage == totalPage} ? 'page-link disabled' : 'page-link'"
+                                    th:href="@{/course(page=${currentPage+1})}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </main>

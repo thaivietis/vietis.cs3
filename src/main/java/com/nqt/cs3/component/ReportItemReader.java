@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import com.nqt.cs3.domain.Course;
 import com.nqt.cs3.domain.Enrollment;
 import com.nqt.cs3.dto.ReaderItemDTO;
-import com.nqt.cs3.service.EnrollmentService;
+import com.nqt.cs3.service.enrollment.EnrollmentService;
 
 import jakarta.annotation.PostConstruct;
 

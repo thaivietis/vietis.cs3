@@ -27,8 +27,8 @@ import com.nqt.cs3.component.ReportItemReader;
 import com.nqt.cs3.component.ReportItemProcess;
 import com.nqt.cs3.dto.ReaderItemDTO;
 import com.nqt.cs3.dto.ReportDTO;
-import com.nqt.cs3.service.EnrollmentService;
-import com.nqt.cs3.service.ReportService;
+import com.nqt.cs3.service.enrollment.EnrollmentService;
+import com.nqt.cs3.service.report.ReportService;
 
 @Configuration
 @EnableScheduling
