@@ -1,4 +1,4 @@
-package com.nqt.cs3.service;
+package com.nqt.cs3.service.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.core.userdetails.User;
 
 import com.nqt.cs3.domain.Student;
+import com.nqt.cs3.service.student.StudentService;
 
 import java.util.Collections;
 

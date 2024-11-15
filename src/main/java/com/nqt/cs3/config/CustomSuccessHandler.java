@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.nqt.cs3.domain.Student;
-import com.nqt.cs3.service.StudentService;
+import com.nqt.cs3.service.student.StudentService;
+
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

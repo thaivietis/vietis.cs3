@@ -16,7 +16,6 @@ import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
 import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -28,8 +27,8 @@ import com.nqt.cs3.component.ReportItemReader;
 import com.nqt.cs3.component.ReportItemProcess;
 import com.nqt.cs3.dto.ReaderItemDTO;
 import com.nqt.cs3.dto.ReportDTO;
-import com.nqt.cs3.service.EnrollmentService;
-import com.nqt.cs3.service.ReportService;
+import com.nqt.cs3.service.enrollment.EnrollmentService;
+import com.nqt.cs3.service.report.ReportService;
 
 @Configuration
 @EnableScheduling

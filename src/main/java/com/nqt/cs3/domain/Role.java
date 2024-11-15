@@ -1,6 +1,5 @@
 package com.nqt.cs3.domain;
 
-import java.util.List;
 
 import com.nqt.cs3.constant.RoleEnum;
 import jakarta.persistence.*;

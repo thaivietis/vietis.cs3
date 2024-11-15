@@ -1,16 +1,22 @@
 package com.nqt.cs3.controller;
 
+import com.nqt.cs3.constant.GlobalConstant;
 import com.nqt.cs3.domain.Course;
-import com.nqt.cs3.service.CourseService;
+import com.nqt.cs3.service.course.CourseService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class CourseController {
@@ -19,9 +25,18 @@ public class CourseController {
     private CourseService courseService;
 
     @GetMapping("/course")
-    public String getAllCourse(Model model){
-        List<Course> courses = this.courseService.findAll();
-        model.addAttribute("courses", courses);
+    public String getAllCourse(Model model, @RequestParam("page") Optional<String> pageOptional){
+        int page = 1;
+        try {
+            if (pageOptional.isPresent()) {
+                page = Integer.parseInt(pageOptional.get());
+            }
+        } catch (Exception e) {}
+        Pageable pageable = PageRequest.of(page - 1, GlobalConstant.QUANTITY_RECORD_COURSE);
+        Page<Course> courses = this.courseService.getCoursePage(pageable);
+        model.addAttribute("courses", courses.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPage", courses.getTotalPages());
         return "course/show";
     }
 

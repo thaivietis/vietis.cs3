@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.nqt.cs3.domain.Enrollment;
-import com.nqt.cs3.service.EnrollmentService;
+import com.nqt.cs3.service.enrollment.EnrollmentService;
 
 @Controller
 public class EnrollmentController {
@@ -62,7 +62,7 @@ public class EnrollmentController {
 
     @PostMapping("/enrollment/delete")
     public String postDeleteEnrollment(@ModelAttribute("enrollment") Enrollment enrollment){
-        this.enrollmentService.delete(enrollment.getId());
+        this.enrollmentService.deleteById(enrollment.getId());
         return "redirect:/enrollment";
     }
 }

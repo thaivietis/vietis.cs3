@@ -1,4 +1,4 @@
-package com.nqt.cs3.service;
+package com.nqt.cs3.service.student;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +7,6 @@ import com.nqt.cs3.constant.RoleEnum;
 import com.nqt.cs3.domain.Role;
 import com.nqt.cs3.domain.Student;
 import com.nqt.cs3.dto.RegisterDTO;
-import com.nqt.cs3.service.IService.IStudentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

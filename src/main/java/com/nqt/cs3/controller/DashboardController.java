@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.nqt.cs3.service.ReportService;
+import com.nqt.cs3.service.report.ReportService;
 @Controller
 @EnableWebSecurity
 public class DashboardController {
@@ -18,6 +18,4 @@ public class DashboardController {
         model.addAttribute("reports", this.reportService.getAllReport());
         return "admin/homepage";
     }
-
-
 }

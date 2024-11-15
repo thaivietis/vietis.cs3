@@ -9,7 +9,6 @@ import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.NonTransientResourceException;
 import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import com.nqt.cs3.constant.RoleEnum;
@@ -17,9 +16,9 @@ import com.nqt.cs3.domain.Course;
 import com.nqt.cs3.domain.Enrollment;
 import com.nqt.cs3.domain.Student;
 import com.nqt.cs3.dto.EmailReaderItemDTO;
-import com.nqt.cs3.service.CourseService;
-import com.nqt.cs3.service.EnrollmentService;
-import com.nqt.cs3.service.StudentService;
+import com.nqt.cs3.service.course.CourseService;
+import com.nqt.cs3.service.enrollment.EnrollmentService;
+import com.nqt.cs3.service.student.StudentService;
 
 import jakarta.annotation.PostConstruct;
 
@@ -43,7 +42,7 @@ public class EmailItemReader implements ItemReader<EmailReaderItemDTO> {
 
     @PostConstruct
     public void initObject() {
-        courses = this.courseService.findAll();
+        courses = this.courseService.findAllCourse();
         enrollments = this.enrollmentService.findAll();
         students = this.studentService.findAll();
         emailReaderItemDTOList = new ArrayList<>();

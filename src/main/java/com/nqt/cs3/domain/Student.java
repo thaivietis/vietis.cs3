@@ -1,6 +1,5 @@
 package com.nqt.cs3.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.nqt.cs3.constant.*;
 
 import jakarta.persistence.*;
@@ -12,9 +11,6 @@ import lombok.experimental.FieldDefaults;
 
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.List;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @NoArgsConstructor

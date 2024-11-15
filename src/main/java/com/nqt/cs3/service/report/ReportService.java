@@ -1,4 +1,4 @@
-package com.nqt.cs3.service;
+package com.nqt.cs3.service.report;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nqt.cs3.domain.Report;
-import com.nqt.cs3.dto.ReportDTO;
 import com.nqt.cs3.repository.ReportRepository;
-import com.nqt.cs3.service.IService.IReportService;
 
 @Service
 public class ReportService implements IReportService {

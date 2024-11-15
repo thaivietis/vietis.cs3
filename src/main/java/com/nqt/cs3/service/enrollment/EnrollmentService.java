@@ -1,14 +1,13 @@
-package com.nqt.cs3.service;
+package com.nqt.cs3.service.enrollment;
 
 import com.nqt.cs3.domain.Enrollment;
 import com.nqt.cs3.repository.EnrollmentRepository;
-import com.nqt.cs3.service.IService.IEnrollmentService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EnrollmentService implements IEnrollmentService {
@@ -43,7 +42,17 @@ public class EnrollmentService implements IEnrollmentService {
     }
 
     @Override
-    public void delete(long id) {
+    public void deleteById(long id) {
         this.enrollmentRepository.deleteById(id);
     }
+
+    @Override
+    public Enrollment findByCourseIdAndUserId(long courseId, long userId) {
+        Optional<Enrollment> enrollment = this.enrollmentRepository.findByStudentIdAndCourseId(userId, courseId);
+        if(!enrollment.isPresent()){
+            return null;
+        }
+        return enrollment.get();
+    }
+
 }

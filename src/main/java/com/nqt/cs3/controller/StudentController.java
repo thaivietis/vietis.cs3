@@ -1,7 +1,8 @@
 package com.nqt.cs3.controller;
 
 import com.nqt.cs3.domain.Student;
-import com.nqt.cs3.service.StudentService;
+import com.nqt.cs3.service.student.StudentService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

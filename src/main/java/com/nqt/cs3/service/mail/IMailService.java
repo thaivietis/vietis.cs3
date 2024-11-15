@@ -1,4 +1,4 @@
-package com.nqt.cs3.service.IService;
+package com.nqt.cs3.service.mail;
 
 import java.io.IOException;
 import java.util.List;
