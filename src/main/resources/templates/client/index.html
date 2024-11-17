@@ -71,25 +71,50 @@
 
     <!-- Content (Khóa học trả phí)-->
     <div class="container" style="margin-top: 100px;">
-        <h3 class="mb-3">Khóa học nâng cao</h1>
-            <div class="container">
-                <div class="row justify-content-between">
-                    <div class="card mb-3" style="width: 18rem;" th:each="advancedCourse : ${advancedCourses}">
-                        <a href="" class="card-img-top" style="text-decoration: none;"><img src="..." class=""
-                                alt="..."></a>
-                        <div class="card-body">
-                            <a href="" style="text-decoration: none;" class="card-title">
-                                <h5 th:text="${advancedCourse.name}"></h5>
-                            </a></br>
-                            <!-- Nội dung -->
-                            <p class="d-inline" th:text="${advancedCourse.description}"></p>
-                            <p class="card-text" th:text="${advancedCourse.price}">$</p>
-                            <a th:href="@{/detail-course/{id}(id = ${advancedCourse.id})}" class="btn btn-primary">Xem
-                                chi tiết</a>
-                        </div>
+        <h3 class="mb-3">Khóa học nâng cao</h3>
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="card mb-3" style="width: 18rem;" th:each="advancedCourse : ${advancedCourses}">
+                    <a href="" class="card-img-top" style="text-decoration: none;"><img src="..." class=""
+                            alt="..."></a>
+                    <div class="card-body">
+                        <a href="" style="text-decoration: none;" class="card-title">
+                            <h5 th:text="${advancedCourse.name}"></h5>
+                        </a></br>
+                        <!-- Nội dung -->
+                        <p class="d-inline" th:text="${advancedCourse.description}"></p>
+                        <p class="card-text" th:text="${advancedCourse.price}">$</p>
+                        <a th:href="@{/detail-course/{id}(id = ${advancedCourse.id})}" class="btn btn-primary">Xem
+                            chi tiết</a>
                     </div>
                 </div>
             </div>
+        </div>
+        <div aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a th:classappend="${currentPageAdvancedCourses == 1} ? 'page-link disabled' : 'page-link'"
+                        th:href="@{/(currentPageFreeCourses=${currentPageFreeCourses}, currentPageFreeCourses=${currentPageFreeCourses+1})}"
+                        aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:each="page : ${#numbers.sequence(1, totalAdvancedCourses)}"
+                    th:classappend="${page == currentPageAdvancedCourses} ? 'active':''">
+                    <a class="page-link"
+                        th:href="@{/(currentPageFreeCourses=${currentPageFreeCourses}, currentPageFreeCourses=${currentPageFreeCourses})}"
+                        th:text="${page}">
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a th:classappend="${currentPageAdvancedCourses == totalAdvancedCourses} ? 'page-link disabled' : 'page-link'"
+                        th:href="@{/(currentPageFreeCourses=${currentPageFreeCourses}, currentPageFreeCourses=${currentPageFreeCourses+1})}"
+                        aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <!-- Content (Khóa học miễn phí)-->
@@ -112,6 +137,31 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a th:classappend="${currentPageFreeCourses == 1} ? 'page-link disabled' : 'page-link'"
+                            th:href="@{/(currentPageFreeCourses=${currentPageFreeCourses-1}, currentPageFreeCourses=${currentPageFreeCourses})}"
+                            aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item" th:each="page : ${#numbers.sequence(1, totalFreeCourses)}"
+                        th:classappend="${page == currentPageFreeCourses} ? 'active':''">
+                        <a class="page-link"
+                            th:href="@{/(currentPageFreeCourses=${currentPageFreeCourses}, currentPageFreeCourses=${currentPageFreeCourses})}"
+                            th:text="${page}">
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a th:classappend="${currentPageFreeCourses == totalFreeCourses} ? 'page-link disabled' : 'page-link'"
+                            th:href="@{/(currentPageFreeCourses=${currentPageFreeCourses+1}, currentPageFreeCourses=${currentPageFreeCourses})}"
+                            aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
             </div>
     </div>
 

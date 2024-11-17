@@ -1,4 +1,4 @@
-package com.nqt.cs3.component;
+package com.nqt.cs3.component.schedule;
 
 import java.util.UUID;
 
@@ -21,7 +21,8 @@ public class BatchJobScheduler {
     @Qualifier("sendMailJob")
     private final Job sendMailJob;
 
-    public BatchJobScheduler(JobLauncher jobLauncher,@Qualifier("reportJob") Job reportJob, @Qualifier("sendMailJob") Job sendMailJob) {
+    public BatchJobScheduler(JobLauncher jobLauncher, @Qualifier("reportJob") Job reportJob,
+            @Qualifier("sendMailJob") Job sendMailJob) {
         this.jobLauncher = jobLauncher;
         this.reportJob = reportJob;
         this.sendMailJob = sendMailJob;
@@ -30,12 +31,12 @@ public class BatchJobScheduler {
     @Scheduled(cron = "* * 9 * * MON")
     public void runBatchReportJob() throws JobExecutionException, NoSuchJobException {
         JobParameters reportJobParameters = new JobParametersBuilder()
-            .addString("uniqueKeyReportJob", UUID.randomUUID().toString())
-            .toJobParameters();
+                .addString("uniqueKeyReportJob", UUID.randomUUID().toString())
+                .toJobParameters();
         jobLauncher.run(reportJob, reportJobParameters);
         JobParameters sendMailJobParameters = new JobParametersBuilder()
-            .addString("uniqueKeySendMailJob", UUID.randomUUID().toString())
-            .toJobParameters();
+                .addString("uniqueKeySendMailJob", UUID.randomUUID().toString())
+                .toJobParameters();
         jobLauncher.run(sendMailJob, sendMailJobParameters);
     }
 }

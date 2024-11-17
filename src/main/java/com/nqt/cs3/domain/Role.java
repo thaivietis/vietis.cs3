@@ -1,6 +1,5 @@
 package com.nqt.cs3.domain;
 
-
 import com.nqt.cs3.constant.RoleEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -13,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "role")
+@Table(name = "roles")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,5 +23,5 @@ public class Role {
 
     // @OneToMany(mappedBy = "role")
     // private List<Student> students;
-    
+
 }

@@ -8,26 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nqt.cs3.constant.GlobalConstant;
-import com.nqt.cs3.constant.RoleEnum;
 import com.nqt.cs3.domain.Course;
 import com.nqt.cs3.domain.Enrollment;
 import com.nqt.cs3.domain.Student;
-import com.nqt.cs3.dto.RegisterDTO;
 import com.nqt.cs3.service.course.CourseService;
 import com.nqt.cs3.service.enrollment.EnrollmentService;
 import com.nqt.cs3.service.student.StudentService;
-
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomepageController {
@@ -36,29 +30,36 @@ public class HomepageController {
     private StudentService studentService;
 
     @Autowired
-    private CourseService courseService;  
-    
-    @Autowired 
+    private CourseService courseService;
+
+    @Autowired
     private EnrollmentService enrollmentService;
 
     @GetMapping("/")
-    public String homepage(Model model, @RequestParam("page") Optional<String> pageOptional) {
-        int page = 1;
+    public String homepage(Model model, @RequestParam("pageAdvancedCourses") Optional<String> pageOptional1,
+            @RequestParam("pageFreeCourses") Optional<String> pageOptional2) {
+        int pageAdvancedCourses = 1;
+        int pageFreeCourses = 1;
         try {
-            if (pageOptional.isPresent()) {
-                // Kiểm tra xem page có  tồn tại không? Nếu có thì lấy giá trị và ép kiểu int
-                page = Integer.parseInt(pageOptional.get());
+            if (pageOptional1.isPresent()) {
+                // Kiểm tra xem page có tồn tại không? Nếu có thì lấy giá trị và ép kiểu int
+                pageAdvancedCourses = Integer.parseInt(pageOptional1.get());
             }
-        } catch (Exception e) {}
-        Pageable pageable = PageRequest.of(page - 1, 6);
-        Page<Course> prs = this.courseService.getCoursePage(pageable);
-        List<Course> courses = prs.getContent();
-        List<Course> advancedCourses = this.courseService.filterEnhanceCourse();
-        List<Course> freeCourses = this.courseService.filterBaseCourse();
-        model.addAttribute("advancedCourses", advancedCourses);
-        model.addAttribute("freeCourses", freeCourses);
-        model.addAttribute("totalPages", prs.getTotalPages());
-        model.addAttribute("currentPage", page);
+            if (pageOptional2.isPresent()) {
+                // Kiểm tra xem page có tồn tại không? Nếu có thì lấy giá trị và ép kiểu int
+                pageFreeCourses = Integer.parseInt(pageOptional2.get());
+            }
+        } catch (Exception e) {
+        }
+        Pageable pageable = PageRequest.of(pageAdvancedCourses - 1, 8);
+        Page<Course> advancedCourses = this.courseService.filterEnhanceCourse(pageable);
+        Page<Course> freeCourses = this.courseService.filterBaseCourse(pageable);
+        model.addAttribute("advancedCourses", advancedCourses.getContent());
+        model.addAttribute("freeCourses", freeCourses.getContent());
+        model.addAttribute("totalAdvancedCourses", advancedCourses.getTotalPages());
+        model.addAttribute("totalFreeCourses", freeCourses.getTotalPages());
+        model.addAttribute("currentPageAdvancedCourses", pageAdvancedCourses);
+        model.addAttribute("currentPageFreeCourses", pageFreeCourses);
         return "client/index";
     }
 
@@ -96,11 +97,12 @@ public class HomepageController {
     public String getAllEnrollmentCourse(Model model) {
         List<Enrollment> enrollments = this.enrollmentService.findAll();
         String email = this.studentService.getUserNameInContextHolder();
-        List<Enrollment> enrollmentStream = enrollments.stream().filter(enrollment -> enrollment.getStudent().getEmail().equals(email)).collect(Collectors.toList());
+        List<Enrollment> enrollmentStream = enrollments.stream()
+                .filter(enrollment -> enrollment.getStudent().getEmail().equals(email)).collect(Collectors.toList());
         model.addAttribute("enrollments", enrollmentStream);
         return "client/enrollmented_course";
     }
-    
+
     @GetMapping("/enrollment-id")
     public String getDeleteEnrollmentedCourse(@RequestParam("id") long id) {
         Enrollment enrollment = this.enrollmentService.findById(id);
