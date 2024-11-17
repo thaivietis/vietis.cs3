@@ -6,6 +6,7 @@ import com.nqt.cs3.repository.CourseRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,7 @@ public class CourseService implements ICourseService {
     @Override
     public Course update(Course course) {
         Course courseOptional = this.findById(course.getId());
-        if(courseOptional != null) {
+        if (courseOptional != null) {
             Course currentCourse = new Course();
             currentCourse.setId(course.getId());
             currentCourse.setName(course.getName());
@@ -57,8 +58,9 @@ public class CourseService implements ICourseService {
 
     public void updateQuantityStudentAfterEnrollmentCourse(long id) {
         Course currentCourse = this.findById(id);
-        if(currentCourse != null && currentCourse.getQuantityStudent() <= currentCourse.getMaxStudent()) {
-            currentCourse.setQuantityStudent(currentCourse.getQuantityStudent() + GlobalConstant.A_STUDENT_CLICK_REGISTER);
+        if (currentCourse != null && currentCourse.getQuantityStudent() <= currentCourse.getMaxStudent()) {
+            currentCourse
+                    .setQuantityStudent(currentCourse.getQuantityStudent() + GlobalConstant.A_STUDENT_CLICK_REGISTER);
             this.save(currentCourse);
         }
     }
@@ -73,17 +75,24 @@ public class CourseService implements ICourseService {
         return this.courseRepository.findAll();
     }
 
-    public List<Course> filterBaseCourse(){
-        List<Course> courses = this.findAllCourse();
-        return courses.stream()
-            .filter(course -> course.getPrice() == 0)
-            .collect(Collectors.toList());
+    public Page<Course> filterBaseCourse(Pageable pageable) {
+        List<Course> filteredCourses = this.findAllCourse().stream()
+                .filter(course -> course.getPrice() == 0)
+                .collect(Collectors.toList());
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), filteredCourses.size());
+        List<Course> pagedCourses = filteredCourses.subList(start, end);
+        return new PageImpl<>(pagedCourses, pageable, filteredCourses.size());
     }
 
-    public List<Course> filterEnhanceCourse(){
-        List<Course> courses = this.findAllCourse();
-        return courses.stream()
-            .filter(course -> course.getPrice() > 0)
-            .collect(Collectors.toList());
+    public Page<Course> filterEnhanceCourse(Pageable pageable) {
+        List<Course> filteredCourses = this.findAllCourse()
+                .stream()
+                .filter(course -> course.getPrice() > 0)
+                .collect(Collectors.toList());
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), filteredCourses.size());
+        List<Course> pagedCourses = filteredCourses.subList(start, end);
+        return new PageImpl<>(pagedCourses, pageable, filteredCourses.size());
     }
 }

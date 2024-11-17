@@ -11,12 +11,12 @@ import com.nqt.cs3.repository.ReportRepository;
 
 @Service
 public class ReportService implements IReportService {
-    
+
     @Autowired
     public ReportRepository reportRepository;
 
     @Override
-    public List<Report> getAllReport(){
+    public List<Report> getAllReport() {
         return this.reportRepository.findAll();
     }
 

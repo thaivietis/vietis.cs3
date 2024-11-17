@@ -1,4 +1,4 @@
-package com.nqt.cs3.component;
+package com.nqt.cs3.component.batch;
 
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;

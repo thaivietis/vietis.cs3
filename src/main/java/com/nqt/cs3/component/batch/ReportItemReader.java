@@ -1,4 +1,4 @@
-package com.nqt.cs3.component;
+package com.nqt.cs3.component.batch;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;

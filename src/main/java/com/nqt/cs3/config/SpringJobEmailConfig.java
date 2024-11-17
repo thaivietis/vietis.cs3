@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import com.nqt.cs3.component.EmailItemProcess;
-import com.nqt.cs3.component.EmailItemReader;
+import com.nqt.cs3.component.batch.EmailItemProcess;
+import com.nqt.cs3.component.batch.EmailItemReader;
 import com.nqt.cs3.domain.Student;
 import com.nqt.cs3.dto.EmailReaderItemDTO;
 import com.nqt.cs3.service.course.CourseService;

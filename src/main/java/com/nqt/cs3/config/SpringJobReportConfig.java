@@ -23,8 +23,8 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import com.nqt.cs3.component.ReportItemReader;
-import com.nqt.cs3.component.ReportItemProcess;
+import com.nqt.cs3.component.batch.ReportItemProcess;
+import com.nqt.cs3.component.batch.ReportItemReader;
 import com.nqt.cs3.dto.ReaderItemDTO;
 import com.nqt.cs3.dto.ReportDTO;
 import com.nqt.cs3.service.enrollment.EnrollmentService;
