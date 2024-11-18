@@ -49,16 +49,19 @@ public class HomepageController {
                 // Kiểm tra xem page có tồn tại không? Nếu có thì lấy giá trị và ép kiểu int
                 pageFreeCourses = Integer.parseInt(pageOptional2.get());
             }
-        } catch (Exception e) {
-        }
-        Pageable pageable = PageRequest.of(pageAdvancedCourses - 1, 8);
-        Page<Course> advancedCourses = this.courseService.filterEnhanceCourse(pageable);
-        Page<Course> freeCourses = this.courseService.filterBaseCourse(pageable);
+        } catch (Exception e) {}
+
+        Pageable pageableAdvanced  = PageRequest.of(pageAdvancedCourses - 1, 6);
+        Page<Course> advancedCourses = this.courseService.filterEnhanceCourse(pageableAdvanced);
+        Pageable pageableFree = PageRequest.of(pageFreeCourses - 1, 6);
+        Page<Course> freeCourses = this.courseService.filterBaseCourse(pageableFree);
+
         model.addAttribute("advancedCourses", advancedCourses.getContent());
-        model.addAttribute("freeCourses", freeCourses.getContent());
         model.addAttribute("totalAdvancedCourses", advancedCourses.getTotalPages());
-        model.addAttribute("totalFreeCourses", freeCourses.getTotalPages());
         model.addAttribute("currentPageAdvancedCourses", pageAdvancedCourses);
+
+        model.addAttribute("freeCourses", freeCourses.getContent());
+        model.addAttribute("totalFreeCourses", freeCourses.getTotalPages());
         model.addAttribute("currentPageFreeCourses", pageFreeCourses);
         return "client/index";
     }
@@ -94,12 +97,19 @@ public class HomepageController {
     }
 
     @GetMapping("/enrollmented-course")
-    public String getAllEnrollmentCourse(Model model) {
-        List<Enrollment> enrollments = this.enrollmentService.findAll();
+    public String getAllEnrollmentCourse(Model model, @RequestParam("page") Optional<String> pageOptional) {
+        int page = 1;
+        try {
+            if (pageOptional.isPresent()) {
+                page = Integer.parseInt(pageOptional.get());
+            }
+        } catch (Exception e) {}
+        Pageable pageable = PageRequest.of(page - 1, 6);
         String email = this.studentService.getUserNameInContextHolder();
-        List<Enrollment> enrollmentStream = enrollments.stream()
-                .filter(enrollment -> enrollment.getStudent().getEmail().equals(email)).collect(Collectors.toList());
-        model.addAttribute("enrollments", enrollmentStream);
+        Page<Enrollment> enrollmentPage = this.enrollmentService.filterEnrollmentByEmail(email, pageable);
+        model.addAttribute("enrollments", enrollmentPage.getContent());
+        model.addAttribute("totalEnrollmentedCourses", enrollmentPage.getTotalPages());
+        model.addAttribute("currentPageEnrollmentedCourses", page);
         return "client/enrollmented_course";
     }
 

@@ -4,10 +4,15 @@ import com.nqt.cs3.domain.Enrollment;
 import com.nqt.cs3.repository.EnrollmentRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EnrollmentService implements IEnrollmentService {
@@ -53,6 +58,16 @@ public class EnrollmentService implements IEnrollmentService {
             return null;
         }
         return enrollment.get();
+    }
+
+    @Override
+    public Page<Enrollment> filterEnrollmentByEmail(String email, Pageable pageable) {
+        List<Enrollment> enrollments = this.findAll().stream()
+                .filter(enrollment -> enrollment.getStudent().getEmail().equals(email))
+                .collect(Collectors.toList());
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), enrollments.size());
+        return new PageImpl<>(enrollments.subList(start, end), pageable, enrollments.size());
     }
 
 }

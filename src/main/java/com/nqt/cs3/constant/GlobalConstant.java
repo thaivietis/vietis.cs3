@@ -5,4 +5,5 @@ public class GlobalConstant {
     public static final String DATE_TIME_PARTERN = "dd-MM-yyyy";
     public static final int A_STUDENT_CLICK_CANCAL_COURSE = 1;
     public static final int QUANTITY_RECORD_COURSE = 6;
+    public static final String CHECK_EXISTS_BY_EMAIL = "Email đã tồn tại!";
 }

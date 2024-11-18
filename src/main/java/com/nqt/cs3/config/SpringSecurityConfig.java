@@ -73,7 +73,7 @@ public class SpringSecurityConfig {
                         .formLogin(formLogin -> formLogin
                                 .loginPage("/login")
                                 .successHandler(customSuccessHandler())
-                                .failureUrl("/erorr")
+                                .failureUrl("/error/404")
                                 .permitAll()
                         )                
                         .sessionManagement((sessionManagement) -> sessionManagement
