@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.nqt.cs3.constant.GlobalConstant;
 import com.nqt.cs3.constant.RoleEnum;
 import com.nqt.cs3.domain.Student;
 import com.nqt.cs3.dto.RegisterDTO;
+import com.nqt.cs3.error.EmailInvalidException;
 import com.nqt.cs3.service.student.StudentService;
 
 import jakarta.servlet.http.HttpSession;
@@ -36,6 +38,7 @@ public class AuthController {
         return "redirect:/admin";
 
     }
+
     @GetMapping("/logout")
     public String logout(Model model) {
         return "redirect:/login";
@@ -48,11 +51,17 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String postRegister(@ModelAttribute("register") RegisterDTO registerDTO) {
+    public String postRegister(@ModelAttribute("register") RegisterDTO registerDTO, Model model) {
+        boolean checkExistsByEmail = this.studentService.checkExistsByEmail(registerDTO.getEmail());
+        if(checkExistsByEmail) {
+            model.addAttribute("error", GlobalConstant.CHECK_EXISTS_BY_EMAIL);
+            return "auth/register";
+        }
         Student newStudent = this.studentService.registerDtoToStudent(registerDTO);
         newStudent.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
         newStudent.setRole(this.studentService.getRoleByName(RoleEnum.USER));
         this.studentService.save(newStudent);
         return "redirect:/login";
     }
+
 }

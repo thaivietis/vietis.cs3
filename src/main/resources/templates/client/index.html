@@ -94,21 +94,21 @@
             <ul class="pagination justify-content-center">
                 <li class="page-item">
                     <a th:classappend="${currentPageAdvancedCourses == 1} ? 'page-link disabled' : 'page-link'"
-                        th:href="@{/(currentPageFreeCourses=${currentPageFreeCourses}, currentPageFreeCourses=${currentPageFreeCourses+1})}"
+                        th:href="@{/?(pageAdvancedCourses=${currentPageAdvancedCourses-1}, pageFreeCourses=${currentPageFreeCourses})}" 
                         aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li class="page-item" th:each="page : ${#numbers.sequence(1, totalAdvancedCourses)}"
-                    th:classappend="${page == currentPageAdvancedCourses} ? 'active':''">
+                <li class="page-item" th:each="page1 : ${#numbers.sequence(1, totalAdvancedCourses)}"
+                    th:classappend="${page1 == currentPageAdvancedCourses} ? 'active':''">
                     <a class="page-link"
-                        th:href="@{/(currentPageFreeCourses=${currentPageFreeCourses}, currentPageFreeCourses=${currentPageFreeCourses})}"
-                        th:text="${page}">
+                    th:href="@{/?(pageAdvancedCourses=${page1}, pageFreeCourses=${currentPageFreeCourses})}"
+                        th:text="${page1}">
                     </a>
                 </li>
                 <li class="page-item">
                     <a th:classappend="${currentPageAdvancedCourses == totalAdvancedCourses} ? 'page-link disabled' : 'page-link'"
-                        th:href="@{/(currentPageFreeCourses=${currentPageFreeCourses}, currentPageFreeCourses=${currentPageFreeCourses+1})}"
+                    th:href="@{/?(pageAdvancedCourses=${currentPageAdvancedCourses+1}, pageFreeCourses=${currentPageFreeCourses})}"
                         aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
@@ -142,21 +142,21 @@
                 <ul class="pagination justify-content-center">
                     <li class="page-item">
                         <a th:classappend="${currentPageFreeCourses == 1} ? 'page-link disabled' : 'page-link'"
-                            th:href="@{/(currentPageFreeCourses=${currentPageFreeCourses-1}, currentPageFreeCourses=${currentPageFreeCourses})}"
+                            th:href="@{/?(pageFreeCourses=${currentPageFreeCourses-1}, pageAdvancedCourses=${currentPageAdvancedCourses})}" 
                             aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <li class="page-item" th:each="page : ${#numbers.sequence(1, totalFreeCourses)}"
-                        th:classappend="${page == currentPageFreeCourses} ? 'active':''">
+                    <li class="page-item" th:each="page2 : ${#numbers.sequence(1, totalFreeCourses)}"
+                        th:classappend="${page2 == currentPageFreeCourses} ? 'active':''">
                         <a class="page-link"
-                            th:href="@{/(currentPageFreeCourses=${currentPageFreeCourses}, currentPageFreeCourses=${currentPageFreeCourses})}"
-                            th:text="${page}">
+                            th:href="@{/?(pageFreeCourses=${page2}, pageAdvancedCourses=${currentPageAdvancedCourses})}"
+                            th:text="${page2}">
                         </a>
                     </li>
                     <li class="page-item">
                         <a th:classappend="${currentPageFreeCourses == totalFreeCourses} ? 'page-link disabled' : 'page-link'"
-                            th:href="@{/(currentPageFreeCourses=${currentPageFreeCourses+1}, currentPageFreeCourses=${currentPageFreeCourses})}"
+                        th:href="@{/?(pageFreeCourses=${currentPageFreeCourses+1}, pageAdvancedCourses=${currentPageAdvancedCourses})}" 
                             aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>

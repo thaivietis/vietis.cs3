@@ -28,7 +28,7 @@ public class BatchJobScheduler {
         this.sendMailJob = sendMailJob;
     }
 
-    @Scheduled(cron = "* * 9 * * MON")
+    @Scheduled(cron = "0 0 9 * * MON")
     public void runBatchReportJob() throws JobExecutionException, NoSuchJobException {
         JobParameters reportJobParameters = new JobParametersBuilder()
                 .addString("uniqueKeyReportJob", UUID.randomUUID().toString())

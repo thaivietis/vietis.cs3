@@ -19,4 +19,6 @@ public interface IStudentService {
     void delete(long id);
 
     Student registerDtoToStudent(RegisterDTO registerDTO);
+
+    boolean checkExistsByEmail(String email);
 }
