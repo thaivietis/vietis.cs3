@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -39,7 +40,7 @@ public class SpringJobReportConfig {
 
 	@Autowired
     private ReportService reportService;
-	
+
 	@Bean
 	@Primary
 	public Job reportJob(Step step1) {

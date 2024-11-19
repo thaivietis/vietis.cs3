@@ -1,0 +1,37 @@
+services:
+  app:
+    build:
+      context: . 
+      dockerfile: Dockerfile 
+    container_name: springboot-app
+    ports:
+      - "8080:8080" 
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/cs3
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Thaimeo1704@
+    depends_on:
+      - mysql
+    volumes:
+      - ./store:/app/store
+    networks:
+      - app-network
+
+  mysql:
+    image: mysql:8.0.38
+    container_name: mysql-container
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: Thaimeo1704@
+      MYSQL_DATABASE: cs3
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - app-network
+
+volumes:
+  db_data: 
+
+networks:
+  app-network:
